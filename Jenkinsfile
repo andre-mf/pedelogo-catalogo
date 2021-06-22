@@ -1,35 +1,33 @@
 pipeline {
-    agent any
+    agent any 
 
     stages {
-
-        stage('Get source') {
+        stage('Checkout Source') {
             steps {
-                git url: 'https://github.com/andre-mf/pedelogo-catalogo', branch: 'main'
+                git url: 'https://github.com/andre-mf/pedelogo-catalogo.git', branch: 'main'
             }
         }
-
-        stage('Docker Build') {
+       stage('Build Image') {
             steps {
                 script {
-                    dockerapp=docker.build("andremf/pedelogo-catalogo:${env.BUILD_ID}",
-                        '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                    dockerapp = docker.build("andremf/pedelogo-catalogo:${env.BUILD_ID}",
+                    '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                 }
             }
         }
 
-        stage('Docker Push Image') {
+        stage('Push Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        dockerapp.push('latest')
-                        dockerapp.push("${env.BUILD_ID}")
-                    }
+                        docker.withRegistry('http://registry.hub.docker.com', 'dockerhub') {   
+                        dockerapp.push('latest')     
+                        dockerapp.push("${env.BUILD_ID}")  
+                    }   
                 }
             }
-        }
+        }      
 
-        stage('Deploy Kubernetes') {
+        stage('Deploy kubernetes') {
             agent {
                 kubernetes {
                     cloud 'kubernetes'
@@ -37,8 +35,8 @@ pipeline {
             }
 
             steps {
-                kubernetesDeploy(configs: '**/k8s/**', kubeconfigId: 'kube')
+                    kubernetesDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')
             }
-        }
+        }                    
     }
-}
+}   
