@@ -9,14 +9,14 @@ pipeline {
             }
         }
 
-        // stage('Docker Build') {
-        //     steps {
-        //         script {
-        //             dockerapp=docker.build("andremf/pedelogo-catalogo:${env.BUILD_ID}",
-        //                 '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
-        //         }
-        //     }
-        // }
+        stage('Docker Build') {
+            steps {
+                script {
+                    dockerapp = docker.build("andremf/pedelogo-catalogo:${env.BUILD_ID}",
+                        '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                }
+            }
+        }
 
         // stage('Docker Push Image') {
         //     steps {
