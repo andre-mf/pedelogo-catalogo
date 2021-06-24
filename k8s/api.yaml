@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: api-deployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: api
@@ -13,20 +12,21 @@ spec:
         app: api
     spec:
       containers:
-      - name: api
-        image: andremf/pedelogo-catalogo
-        resources: {}
-        ports:
-        - containerPort: 80
-        env:
-          - name: Mongo__Host
-            value: mongodb-service
-          - name: Mongo__User
-            value: mongodbuser
-          - name: Mongo__Password
-            value: mongodbpwd
-          - name: Mongo__Database
-            value: admin
+        - name: api
+          image: andremf/pedelogo-catalogo
+          ports:
+          - containerPort: 80
+          imagePullPolicy: Always
+          resources: {}
+          env:
+            - name: Mongo__User
+              value: mongouser
+            - name: Mongo__Password
+              value: mongopwd
+            - name: Mongo__Host
+              value: mongo-service
+            - name: Mongo__DataBase
+              value: admin
 
 ---
 
@@ -38,6 +38,6 @@ spec:
   selector:
     app: api
   ports:
-  - port: 8081
-    targetPort: 80
+    - port: 8081
+      targetPort: 80
   type: NodePort
