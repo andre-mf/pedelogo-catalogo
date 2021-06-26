@@ -40,6 +40,7 @@ pipeline {
                 script {
                     sh("uname -a")
                     sh("ping -c 10 8.8.8.8")
+                    sh("curl andremf.duckdns.org:37559")
                 }
                 // curl 192.168.1.2:37559
                 // ping 127.0.0.1
