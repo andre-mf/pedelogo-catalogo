@@ -37,10 +37,10 @@ pipeline {
             }
 
             steps {
-                script {
-                    sh("uname -a")
-                    sh("ping -c 10 8.8.8.8")
-                }
+                // script {
+                //     sh("uname -a")
+                //     sh("ping -c 10 8.8.8.8")
+                // }
                 // curl 192.168.1.2:37559
                 // ping 127.0.0.1
                 // curl 127.0.0.1:8085
