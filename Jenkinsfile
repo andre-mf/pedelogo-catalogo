@@ -37,6 +37,7 @@ pipeline {
             }
 
             steps {
+                echo 'TESTE ...'
                 kubernetesDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')
             }
         }
