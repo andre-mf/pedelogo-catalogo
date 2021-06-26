@@ -37,9 +37,9 @@ pipeline {
             }
 
             steps {
-                ping -c 4 192.168.1.2
+                ping 192.168.1.2
                 curl 192.168.1.2:37559
-                ping -c 4 127.0.0.1
+                ping 127.0.0.1
                 curl 127.0.0.1:8085
                 kubernetesDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')
             }
