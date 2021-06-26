@@ -38,7 +38,7 @@ pipeline {
 
             steps {
                 script {
-                    sh("ping -c 10 192.168.1.2")
+                    sh("curl 127.0.0.1:8085")
                 }
                 // curl 192.168.1.2:37559
                 // ping 127.0.0.1
