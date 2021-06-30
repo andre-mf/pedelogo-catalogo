@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: andremf/pedelogo-catalogo
+          image: andremf/pedelogo-catalogo:{{tag}}
           ports:
           - containerPort: 80
           imagePullPolicy: Always
